@@ -47,6 +47,7 @@ if (isset($_POST["submit"])){
 		Email Verify: <input type="text" name="emailVerify" /><br/>
 		Password: <input type="password" name="password" /><br/>
 		Password Verify: <input type="password" name="passwordVerify" /><br/>
+		<input type="hidden" name="submit" value="1"/>
 		<input type="submit" value="Submit" />
 	</form>
 	<?php
