@@ -45,7 +45,7 @@ if (isset($_POST["submit"])){
 			
 			$sqlStr = "INSERT INTO tblUsers (username, password, email), VALUES ('".$username."', '".$encPassword."', '".$email.")";
 			
-			if ($conn->query($sql) === TRUE) {
+			if ($conn->query($sqlStr) === TRUE) {
  			   echo json_encode("success");
 			} else {
     			echo json_encode($conn->error);
