@@ -5,6 +5,7 @@ ini_set('display_errors', 1);
 
 require "inc/password.php";
 require "inc/functions.php";
+require "inc/connection.php";
 
 requireSSL();
 
@@ -27,7 +28,7 @@ if (isset($_POST["submit"])){
 			array_push($errors, "Emails do not match");
 		}
 		
-		if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			array_push($errors, "Email adress is not valid");
 		}
 		
