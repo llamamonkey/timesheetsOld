@@ -12,6 +12,10 @@ if (isset($_POST["submit"])){
 		$password = $_POST["password"];
 		$errors = array();
 		
+		if (empty($username)){
+			array_push($errors, "Username field is empty");
+		}
+		
 		if (empty($email)){
 			array_push($errors, "Email field is empty");
 		}
@@ -20,8 +24,12 @@ if (isset($_POST["submit"])){
 			array_push($errors, "Emails do not match");
 		}
 		
+		if (filter_var($email_a, FILTER_VALIDATE_EMAIL)) {
+			array_push($errors, "Email adress is not valid");
+		}
+		
 		if (empty($email)){
-			array_push($password, "Password field is empty");
+			array_push($errors, "Password field is empty");
 		}
 		
 		if ($password != $_POST["passwordVerify"]){
@@ -32,7 +40,13 @@ if (isset($_POST["submit"])){
 			//Enter user information into database
 			$encPassword = password_hash($password, PASSWORD_BCRYPT);
 			
+			$sqlStr = "INSERT INTO tblUsers (username, password, email), VALUES ('".$username."', '".$encPassword."', '".$email.")";
 			
+			if ($conn->query($sql) === TRUE) {
+ 			   echo json_encode("success");;
+			} else {
+    			echo json_encode($conn->error);
+			}
 			
 		} else{
 			//Output errors
