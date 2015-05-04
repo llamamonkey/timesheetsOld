@@ -28,7 +28,7 @@ if (isset($_POST["submit"])){
 			array_push($errors, "Emails do not match");
 		}
 		
-		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+		if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			array_push($errors, "Email adress is not valid");
 		}
 		
@@ -44,7 +44,7 @@ if (isset($_POST["submit"])){
 			//Enter user information into database
 			$encPassword = password_hash($password, PASSWORD_BCRYPT);
 			
-			$sqlStr = "INSERT INTO tblUsers (username, password, email), VALUES ('".$username."', '".$encPassword."', '".$email."')";
+			$sqlStr = "INSERT INTO tblUsers (username, password, email) VALUES ('".$username."', '".$encPassword."', '".$email."')";
 			
 			if ($conn->query($sqlStr) === TRUE) {
  			   echo json_encode("success");
