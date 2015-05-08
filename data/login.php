@@ -26,6 +26,8 @@ if (isset($_POST["submit"])){
 			
 			$sqlStr = "SELECT * FROM tblUsers WHERE username = '".$username."' AND password = '".$encPassword."'";
 			
+			echo $sqlStr;
+			
 			$result = $conn->query($sqlStr);
 
 			if ($result->num_rows > 0) {
