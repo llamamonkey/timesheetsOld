@@ -26,8 +26,6 @@ if (isset($_POST["submit"])){
 			
 			$sqlStr = "SELECT * FROM tblUsers WHERE username = '".$username."'";
 			
-			echo $sqlStr;
-			
 			$result = $conn->query($sqlStr);
 
 			if ($result->num_rows > 0) {
@@ -52,7 +50,11 @@ if (isset($_POST["submit"])){
 		}
 	}
 } else {
-	//HTML Form ?>
+	//HTML Form 
+	
+	if (isset($_SESSION["userid"])){
+		echo $_SESSION["userid"];
+	}?>
 	<form action="" name="loginForm" method="POST">
 		Username: <input type="text" name="username" /><br/>
 		Password: <input type="password" name="password" /><br/>
