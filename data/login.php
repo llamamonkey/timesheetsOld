@@ -24,7 +24,7 @@ if (isset($_POST["submit"])){
 			//Encrypt password to check in database
 			$encPassword = password_hash($password, PASSWORD_BCRYPT);
 			
-			$sqlStr = "SELECT * FROM tblUsers WHERE username = '".$username."' AND password = '".$encPassword."'";
+			$sqlStr = "SELECT * FROM tblUsers WHERE username = '".$username."'";
 			
 			echo $sqlStr;
 			
@@ -33,11 +33,17 @@ if (isset($_POST["submit"])){
 			if ($result->num_rows > 0) {
   			  	// Valid details
 				$row = $result->fetch_assoc();
-				$_SESSION["userid"] = trim($row["userId"]);
 				
-				echo json_encode("success");
+				if (password_verify($password, $row["password"])){
+					$_SESSION["userid"] = trim($row["userId"]);
+				
+					echo json_encode("success");
+					
+				} else {
+					echo json_encode("no password match");
+				}
 			} else {
-				echo json_encode("no match");
+				echo json_encode("no username match");
 			}
 			
 		} else{
