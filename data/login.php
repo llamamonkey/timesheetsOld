@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require "inc/password.php";
 require "inc/functions.php";
 require "inc/connection.php";
