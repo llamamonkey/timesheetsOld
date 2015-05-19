@@ -11,7 +11,7 @@ require "inc/connection.php";
 if (isset($_GET["day"])){
 	$currDay = $_GET["day"];
 } else {
-	$currDay = date();
+	$currDay = date("Y-m-d");
 }
 
 if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
