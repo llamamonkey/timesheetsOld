@@ -79,7 +79,7 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 				$dayInsVal .= ", '" . $_GET["endTime"] . "'";
 			}
 			
-			$sqlStr = "INSERT INTO tblTime (userID, date, ".$dayInsField.") VALUES ('".$currDay."', ".$userid.", ".$dayInsVal.")";
+			$sqlStr = "INSERT INTO tblTime (userID, date".$dayInsField.") VALUES ('".$currDay."', ".$userid.$dayInsVal.")";
 			
 			if ($conn->query($sqlStr) === TRUE) {
  			   echo json_encode("success");
