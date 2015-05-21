@@ -23,11 +23,12 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 		$userid = $_SESSION["userID"];
 	} else{
 		$sqlStr = "SELECT * FROM tblUser WHERE postKey = '" . $_GET['postKey'] . "'";
-		
+		echo $sqlStr;
 		$result = $conn->query($sqlStr);
 
 		if ($result->num_rows > 0) {
 		  	// Valid details
+			$row = $result->fetch_assoc();
 			$userid = $row["userID"];
 		} else {
 			echo "Post Key didn't match a user";
