@@ -85,7 +85,7 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 			}
 			
 			$sqlStr = "INSERT INTO tblTime (userID, date".$dayInsField.") VALUES ('".$userid."', ".$currDay.$dayInsVal.")";
-			
+			echo $sqlStr;
 			if ($conn->query($sqlStr) === TRUE) {
  			   echo json_encode("success");
 			} else {
