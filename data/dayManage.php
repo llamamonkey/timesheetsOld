@@ -43,6 +43,10 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 
 		if ($result->num_rows > 0) {
 		  	// Day exists
+			$row = $result->fetch_assoc();
+			
+			$timeID = $row["timeID"];
+			
 			$dayUpWhere = "";
 			
 			if (isset($_GET["startTime"])){
@@ -57,7 +61,7 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 				}				
 			}
 			
-			$sqlStr = "UPDATE tblTime SET " . $dayUpWhere . "WHERE userID = " . $userid;
+			$sqlStr = "UPDATE tblTime SET " . $dayUpWhere . "WHERE timeID = " . $timeID;
 			
 			if ($conn->query($sqlStr) === TRUE) {
  			   echo json_encode("success");
@@ -80,7 +84,7 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 				$dayInsVal .= ", '" . $_GET["endTime"] . "'";
 			}
 			
-			$sqlStr = "INSERT INTO tblTime (userID, date".$dayInsField.") VALUES ('".$currDay."', ".$userid.$dayInsVal.")";
+			$sqlStr = "INSERT INTO tblTime (userID, date".$dayInsField.") VALUES ('".$userid."', ".$currDay.$dayInsVal.")";
 			
 			if ($conn->query($sqlStr) === TRUE) {
  			   echo json_encode("success");
