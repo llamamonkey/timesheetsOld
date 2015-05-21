@@ -22,8 +22,8 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 	if (isset($_SESSION["userID"])){
 		$userid = $_SESSION["userID"];
 	} else{
-		$sqlStr = "SELECT * FROM tblUser WHERE postKey = '" . $_GET['postKey'] . "'";
-		echo $sqlStr;
+		$sqlStr = "SELECT * FROM tblUsers WHERE postKey = '" . $_GET['postKey'] . "'";
+		
 		$result = $conn->query($sqlStr);
 
 		if ($result->num_rows > 0) {
