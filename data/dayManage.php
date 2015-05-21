@@ -37,7 +37,7 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 	
 	if ($userid != 0){
 		//Check if current day exists, if not create a new one
-		$sqlStr = "SELECT * FROM tblTime WHERE userID = '" . $userid . "' AND date = '" . $currDay . '"';
+		$sqlStr = "SELECT * FROM tblTime WHERE userID = '" . $userid . "' AND date = '" . $currDay . "'";
 		
 		$result = $conn->query($sqlStr);
 
