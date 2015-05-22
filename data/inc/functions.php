@@ -13,7 +13,7 @@ function formatTime($inpTime){
 	
 	$timeParts = explode(":", $proTime);
 	
-	if ($count($timeParts) > 1){
+	if (count($timeParts) > 1){
 		
 		$proTime = $timeParts[1].":".$timeParts[2].":00";
 	} else {
