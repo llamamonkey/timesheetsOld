@@ -14,6 +14,13 @@ function formatTime($inpTime){
 	$timeParts = explode(":", $proTime);
 	
 	if (count($timeParts) > 1){
+		if (intval($timeParts[0]) < 10){
+			$timeParts[0] = $timeParts[0]."0";
+		}
+		
+		if (intval($timeParts[1]) < 10){
+			$timeParts[1] = $timeParts[1]."0";
+		}
 		
 		$proTime = $timeParts[1].":".$timeParts[2].":00";
 	} else {
