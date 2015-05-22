@@ -50,14 +50,14 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 			$dayUpWhere = "";
 			
 			if (isset($_GET["startTime"])){
-				$dayUpWhere = " startTime = '" . $_GET["startTime"] . "'";
+				$dayUpWhere = " startTime = '" . formatTime($_GET["startTime"]) . "'";
 			}
 			
 			if (isset($_GET["endTime"])){
 				if ($dayUpWhere == ""){
-					$dayUpWhere = " endTime = '" . $_GET["endTime"] . "'";
+					$dayUpWhere = " endTime = '" . formatTime($_GET["endTime"]) . "'";
 				} else {
-					$dayUpWhere .= ", endTime = '" . $_GET["endTime"] . "'";
+					$dayUpWhere .= ", endTime = '" . formatTime($_GET["endTime"]) . "'";
 				}				
 			}
 			
@@ -76,12 +76,12 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 			
 			if (isset($_GET["startTime"])){
 				$dayInsField .= ", startTime" ;
-				$dayInsVal .= ", '" . $_GET["startTime"] . "'";
+				$dayInsVal .= ", '" . formatTime($_GET["startTime"]) . "'";
 			}
 			
 			if (isset($_GET["endTime"])){
 				$dayInsField .= ", endTime '";
-				$dayInsVal .= ", '" . $_GET["endTime"] . "'";
+				$dayInsVal .= ", '" . formatTime($_GET["endTime"]) . "'";
 			}
 			
 			$sqlStr = "INSERT INTO tblTime (userID, date".$dayInsField.") VALUES ('".$userid."', '".$currDay."'".$dayInsVal.")";

@@ -7,4 +7,19 @@ function requireSSL(){
 		exit();
 	}
 }
+
+function formatTime($inpTime){
+	$proTime = str_replace(".", ":", $inpTime);
+	
+	$timeParts = explode(":", $proTime);
+	
+	if ($count($timeParts) > 1){
+		
+		$proTime = $timeParts[1].":".$timeParts[2].":00";
+	} else {
+		$proTime = "00:00:00";
+	}
+	
+	return $proTime;
+}
 ?>
