@@ -22,7 +22,7 @@ function formatTime($inpTime){
 			$timeParts[1] = "0".$timeParts[1];
 		}
 		
-		$proTime = $timeParts[1].":".$timeParts[2].":00";
+		$proTime = $timeParts[0].":".$timeParts[1].":00";
 	} else {
 		$proTime = "00:00:00";
 	}
