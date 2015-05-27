@@ -69,13 +69,16 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 				}				
 			}
 			
-			$sqlStr = "UPDATE tblTime SET " . $dayUpWhere . "WHERE timeID = " . $timeID;
+			if (!empty($dayUpWhere)){
+				$sqlStr = "UPDATE tblTime SET " . $dayUpWhere . "WHERE timeID = " . $timeID;
 			
-			if ($conn->query($sqlStr) === TRUE) {
- 			   echo json_encode("success");
-			} else {
-    			echo json_encode($conn->error);
+				if ($conn->query($sqlStr) === TRUE) {
+ 				   echo json_encode("success");
+				} else {
+    				echo json_encode($conn->error);
+				}	
 			}
+			
 		} else {
 			//Day doesn't exists so create a new one'
 		  	// Day exists
