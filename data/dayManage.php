@@ -47,9 +47,17 @@ if (isset($_GET['postKey']) || isset($_SESSION["userID"])){
 			
 			$timeID = $row["timeID"];
 			
+			$currStart = $row["startTime"];
+			
+			$alreadySet = false;
+			
+			if (!empty($row["startTime"]) && isset($_GET['postKey'])){
+				$alreadySet = true;
+			}
+			
 			$dayUpWhere = "";
 			
-			if (isset($_GET["startTime"])){
+			if (isset($_GET["startTime"]) && !$alreadySet){
 				$dayUpWhere = " startTime = '" . formatTime($_GET["startTime"], isset($_GET["postKey"])) . "'";
 			}
 			
