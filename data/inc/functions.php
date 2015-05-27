@@ -8,12 +8,27 @@ function requireSSL(){
 	}
 }
 
-function formatTime($inpTime){
+function formatTime($inpTime, $round = false){
 	$proTime = str_replace(".", ":", $inpTime);
 	
 	$timeParts = explode(":", $proTime);
 	
 	if (count($timeParts) > 1){
+		
+		if ($round){
+			$intMins = intval($timeParts[1]);
+			
+			$intMins = round($intMins/5) * 5;
+			
+			$timeParts[1] = strval($intMins);
+		}
+		
+		if  (intval($timeParts[1]) >= 60){
+			$timeParts[0] = strval(intval($timeParts[0]) + 1);
+			
+			$timeParts[1] = strval(intval($timeParts[1]) - 60);
+		}
+		
 		if (intval($timeParts[0]) < 10){
 			$timeParts[0] = "0".$timeParts[0];
 		}
