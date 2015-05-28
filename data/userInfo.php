@@ -11,7 +11,8 @@ if (isset($_SESSION["userID"])){
 	$result = $conn->query($sqlStr);
 
 	if ($result->num_rows > 0) {
-		echo json_encode($result->fetch_assoc());
+		$row = $result->fetch_assoc();
+		echo json_encode($row);
 	}
 } else {
 	echo json_encode("Not logged in");
