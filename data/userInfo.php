@@ -20,6 +20,8 @@ if (isset($_SESSION["userID"])){
 		$json_array["holiday"] = $row["holiday"];
 		
 		echo json_encode($json_array);
+	} else {
+		echo json_encode("no match");
 	}
 } else {
 	echo json_encode("Not logged in");
