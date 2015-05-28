@@ -35,7 +35,7 @@ if (isset($_POST["submit"])){
 				$row = $result->fetch_assoc();
 				
 				if (password_verify($password, $row["password"])){
-					$_SESSION["userid"] = trim($row["userID"]);
+					$_SESSION["userID"] = trim($row["userID"]);
 				
 					echo json_encode("success");
 					
