@@ -6,6 +6,8 @@ session_start();
 require "inc/functions.php";
 require "inc/connection.php";
 
+header('Content-Type: application/json');
+
 if (isset($_GET["day"])){
 	$currDay = $_GET["day"];
 } else {

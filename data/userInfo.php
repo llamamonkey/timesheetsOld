@@ -5,6 +5,8 @@ session_start();
 require "inc/functions.php";
 require "inc/connection.php";
 
+header('Content-Type: application/json');
+
 if (isset($_SESSION["userID"])){
 	$sqlStr = "SELECT * FROM tblUsers WHERE userID = " . $_SESSION["userID"];
 	
