@@ -12,7 +12,14 @@ if (isset($_SESSION["userID"])){
 
 	if ($result->num_rows > 0) {
 		$row = $result->fetch_assoc();
-		echo json_encode($row);
+		$json_array = array();
+		
+		$json_array["userID"] = $row["userID"];
+		$json_array["username"] = $row["username"];
+		$json_array["email"] = $row["email"];
+		$json_array["holiday"] = $row["holiday"];
+		
+		echo json_encode($json_array);
 	}
 } else {
 	echo json_encode("Not logged in");
