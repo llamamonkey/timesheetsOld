@@ -8,28 +8,18 @@ require "inc/connection.php";
 header('Content-Type: application/json');
 
 if (isset($_SESSION["userID"])){
-	$strWhere = "";
-	
-	if (isset($_GET['dateFrom'])){
-		$strWhere .= " AND date >= '" . $_GET['dateStart'] . "'";
-	}
-	
-	if (isset($_GET['dateTo'])){
-		$strWhere .= " AND date <= '" . $_GET['dateTo'] . "'";
-	}
-	
-	$sqlStr = "SELECT * FROM timeDetail WHERE userID = " . $_SESSION["userID"] . $strWhere;
+	$sqlStr = "SELECT * FROM tblUsers WHERE userID = " . $_SESSION["userID"];
 	
 	$result = $conn->query($sqlStr);
 
 	if ($result->num_rows > 0) {
-		
+		$row = $result->fetch_assoc();
 		$json_array = array();
 		
-		while ($row = $result->fetch_assoc()){
-			array_push($json_array, $row);
-		}
-		$row = $result->fetch_assoc();
+		$json_array["userID"] = $row["userID"];
+		$json_array["username"] = $row["username"];
+		$json_array["email"] = $row["email"];
+		$json_array["holiday"] = $row["holiday"];
 		
 		echo json_encode($json_array);
 	} else {
