@@ -11,7 +11,7 @@ if (isset($_SESSION["userID"])){
 	$strWhere = "";
 	
 	if (isset($_GET['dateFrom'])){
-		$strWhere .= " AND date >= '" . $_GET['dateStart'] . "'";
+		$strWhere .= " AND date >= '" . $_GET['dateFrom'] . "'";
 	}
 	
 	if (isset($_GET['dateTo'])){
