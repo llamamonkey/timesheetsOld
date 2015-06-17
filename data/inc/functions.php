@@ -44,4 +44,6 @@ function formatTime($inpTime, $round = false){
 	
 	return $proTime;
 }
+
+header("Access-Control-Allow-Origin: *");
 ?>
