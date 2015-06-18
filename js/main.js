@@ -68,7 +68,8 @@ app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', function 
                         $scope.alert = 'You cancelled the dialog.';
                     });
             } else {
-            $scope.userInfo = response;   
+                $scope.userInfo = response;   
+            }
         });
 
     $scope.currentSection = 'Home';
