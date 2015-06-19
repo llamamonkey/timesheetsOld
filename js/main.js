@@ -52,7 +52,7 @@ var app = angular.module('timesheetApp', ['ngMaterial'], function ($httpProvider
 app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', function ($scope, $mdDialog, $http, $mdToast) {
 
     $scope.userInfo = [];
-    $http.get('http://timesheets-lamamonkey.rhcloud.com/data/userInfo.php')
+    $http.get('https://timesheets-lamamonkey.rhcloud.com/data/userInfo.php')
         .success(function (response) {
             if (response == "Not logged in") {
                 $mdToast.show($mdToast.simple().content('Not Logged In'));
@@ -63,8 +63,13 @@ app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', function 
                         parent: angular.element(document.body),
                     })
                     .then(function (answer) {
-                        $scope.alert = 'You said the information was "' + answer + '".';
+                        console.log("Yes");
+                         $http.get('https://timesheets-lamamonkey.rhcloud.com/data/userInfo.php')
+                            .success(function (response){
+                                console.log(response);
+                         });
                     }, function () {
+                        console.log("No");
                         $scope.alert = 'You cancelled the dialog.';
                     });
             } else {
@@ -90,8 +95,8 @@ function DialogController($scope, $mdDialog, $http) {
                     "submit": "1"
             })
             .success(function (response) {
-                if (response == "success"){
-                    $mdDialog.hide();
+                if (response == '"success"'){
+                    $mdDialog.hide("success");
                 }
             });
     };
