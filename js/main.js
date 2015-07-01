@@ -49,8 +49,38 @@ var app = angular.module('timesheetApp', ['ngMaterial'], function ($httpProvider
     });
 
 
-app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', function ($scope, $mdDialog, $http, $mdToast) {
+app.service('userinfoService', function(){
+    var userinfo = [];
+    
+    var setUser = function(userData){
+        userinfo = userData;    
+    }
+    
+    var getUser = function(){
+        return userinfo;   
+    }
+    
+    var isLoggedIn = function(){
+        if (userinfo != []){
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    var logOut = function(){
+        userinfo = [];   
+    }
+    
+    return {
+        setUser: setUser,
+        getUser: getUser,
+        logOut: logOut,
+        isLoggedIn: isLoggedIn
+    }
+});
 
+app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', 'userinfoService', function ($scope, $mdDialog, $http, $mdToast, userinfoService) {
     $scope.userInfo = [];
     $http.get('https://timesheets-lamamonkey.rhcloud.com/data/userInfo.php')
         .success(function (response) {
@@ -63,10 +93,11 @@ app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', function 
                         parent: angular.element(document.body),
                     })
                     .then(function (answer) {
-                        console.log("Yes");
-                         $http.get('https://timesheets-lamamonkey.rhcloud.com/data/userInfo.php')
+                         $http.get('testData/userInfo.php')//User Info
                             .success(function (response){
-                                console.log(response);
+                                userinfoService.setUser(response);
+                             console.log(userinfoService.isLoggedIn());
+                                $mdToast.show($mdToast.simple().content('Welcome ' + response.username));
                          });
                     }, function () {
                         console.log("No");
@@ -78,6 +109,19 @@ app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', function 
         });
 
     $scope.currentSection = 'Home';
+}]);
+
+app.controller('timeView', ['$scope', '$http', 'userInfoService', function($scope, $http, userinfoService){
+    $scope.days = [];
+    $scope.startDay = '';
+    $scope.endDay = '';
+    
+    if (userinfoService.isLoggedIn()){
+        $http.get('testData/dayInfo.php')
+            .success(function(response){
+                $scope.days = response;
+        });
+    }
 }]);
 
 function DialogController($scope, $mdDialog, $http) {
