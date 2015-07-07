@@ -49,7 +49,7 @@ var app = angular.module('timesheetApp', ['ngMaterial'], function ($httpProvider
     });
 
 
-app.service('userinfoService', function ($mdDialog) {
+app.service('userinfoService', function ($mdToast, $mdDialog, $q, $http) {
     var userinfo = [];
 
     var setUser = function (userData) {
@@ -73,6 +73,7 @@ app.service('userinfoService', function ($mdDialog) {
     }
 
     var logIn = function () {
+        var deffered = $q.defer();
         $mdDialog.show({
                 controller: DialogController,
                 templateUrl: 'js/templates/login.html',
@@ -81,13 +82,15 @@ app.service('userinfoService', function ($mdDialog) {
             .then(function (answer) {
                 $http.get('testData/userInfo.php') //User Info
                     .success(function (response) {
-                        userinfoService.setUser(response);
+                        userinfo = response;
                         $mdToast.show($mdToast.simple().content('Welcome ' + response.username));
+                        deffered.resolve();
                     });
             }, function () {
                 console.log("No");
                 $scope.alert = 'You cancelled the dialog.';
             });
+            return deffered.promise;
     }
 
     return {
@@ -106,7 +109,9 @@ app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', 'userinfo
             if (response == "Not logged in") {
                 $mdToast.show($mdToast.simple().content('Not Logged In'));
 
-                userinfoService.logIn();
+                userinfoService.logIn().then(function(){
+                    console.log(userinfoService.getUser());   
+                });
             } else {
                 $scope.userInfo = response;
             }
