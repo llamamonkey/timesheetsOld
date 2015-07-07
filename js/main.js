@@ -49,33 +49,52 @@ var app = angular.module('timesheetApp', ['ngMaterial'], function ($httpProvider
     });
 
 
-app.service('userinfoService', function(){
+app.service('userinfoService', function ($mdDialog) {
     var userinfo = [];
-    
-    var setUser = function(userData){
-        userinfo = userData;    
+
+    var setUser = function (userData) {
+        userinfo = userData;
     }
-    
-    var getUser = function(){
-        return userinfo;   
+
+    var getUser = function () {
+        return userinfo;
     }
-    
-    var isLoggedIn = function(){
-        if (userinfo != []){
+
+    var isLoggedIn = function () {
+        if (userinfo != []) {
             return true
         } else {
             return false
         }
     }
-    
-    var logOut = function(){
-        userinfo = [];   
+
+    var logOut = function () {
+        userinfo = [];
     }
-    
+
+    var logIn = function () {
+        $mdDialog.show({
+                controller: DialogController,
+                templateUrl: 'js/templates/login.html',
+                parent: angular.element(document.body),
+            })
+            .then(function (answer) {
+                $http.get('testData/userInfo.php') //User Info
+                    .success(function (response) {
+                        userinfoService.setUser(response);
+                        $mdToast.show($mdToast.simple().content('Welcome ' + response.username));
+                    });
+            }, function () {
+                console.log("No");
+                $scope.alert = 'You cancelled the dialog.';
+            });
+    }
+
     return {
         setUser: setUser,
         getUser: getUser,
         logOut: logOut,
+        logIn: logIn,
         isLoggedIn: isLoggedIn
     }
 });
@@ -87,40 +106,25 @@ app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', 'userinfo
             if (response == "Not logged in") {
                 $mdToast.show($mdToast.simple().content('Not Logged In'));
 
-                $mdDialog.show({
-                        controller: DialogController,
-                        templateUrl: 'js/templates/login.html',
-                        parent: angular.element(document.body),
-                    })
-                    .then(function (answer) {
-                         $http.get('testData/userInfo.php')//User Info
-                            .success(function (response){
-                                userinfoService.setUser(response);
-                             console.log(userinfoService.isLoggedIn());
-                                $mdToast.show($mdToast.simple().content('Welcome ' + response.username));
-                         });
-                    }, function () {
-                        console.log("No");
-                        $scope.alert = 'You cancelled the dialog.';
-                    });
+                userinfoService.logIn();
             } else {
-                $scope.userInfo = response;   
+                $scope.userInfo = response;
             }
         });
 
     $scope.currentSection = 'Home';
 }]);
 
-app.controller('timeView', ['$scope', '$http', 'userInfoService', function($scope, $http, userinfoService){
+app.controller('timeView', ['$scope', '$http', 'userinfoService', function ($scope, $http, userinfoService) {
     $scope.days = [];
     $scope.startDay = '';
     $scope.endDay = '';
-    
-    if (userinfoService.isLoggedIn()){
+
+    if (userinfoService.isLoggedIn()) {
         $http.get('testData/dayInfo.php')
-            .success(function(response){
+            .success(function (response) {
                 $scope.days = response;
-        });
+            });
     }
 }]);
 
@@ -133,13 +137,13 @@ function DialogController($scope, $mdDialog, $http) {
     };
     $scope.login = function () {
         $http.post('https://timesheets-lamamonkey.rhcloud.com/data/login.php', {
-                    "username": $scope.user.username,
-                    "password": $scope.user.password,
-                    "remmberMe": $scope.user.remmber,
-                    "submit": "1"
+                "username": $scope.user.username,
+                "password": $scope.user.password,
+                "remmberMe": $scope.user.remmber,
+                "submit": "1"
             })
             .success(function (response) {
-                if (response == '"success"'){
+                if (response == '"success"') {
                     $mdDialog.hide("success");
                 }
             });
