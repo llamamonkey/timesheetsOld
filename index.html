@@ -9,14 +9,78 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
     
     <script src="js/main.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="css/main.css" >
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
     <div ng-controller="mainApp" layout="column" layout-fill>
-        <div ng-controller="timeView">
-        
-        </div>
+          <section layout="row" flex>
+            <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="main" md-is-locked-open="$mdMedia('gt-md')">
+                <md-content>
+                    <md-toolbar layout-align="center center" layout="row">
+                        Timesheets
+                    </md-toolbar>
+                    <md-list>
+                        <md-item>
+                            <md-button><a href="#" class="">Home</a>
+                            </md-button>
+                        </md-item>
+                        <md-divider></md-divider>
+                        <md-item>
+                            <md-button><a href="#" class="">Music</a>
+                            </md-button>
+                        </md-item>
+                        <md-divider></md-divider>
+                        <md-item>
+                            <md-button><a href="#" class="">Films</a>
+                            </md-button>
+                        </md-item>
+                        <md-divider></md-divider>
+                        <md-item>
+                            <md-button><a href="#" class="">TV</a>
+                            </md-button>
+                        </md-item>
+                        <md-divider></md-divider>
+                        <md-item>
+                            <md-button><a href="#" class="">Apps</a>
+                            </md-button>
+                        </md-item>
+
+                    </md-list>
+                </md-content>
+            </md-sidenav>
+            <md-content flex>
+
+                <md-toolbar layout-align="center">
+                    <button ng-hide="$media('gt-md')" ng-click="toggleSidenav()" class="menuBtn" hide-gt-md>
+                        <span class="visuallyhidden">Menu</span>
+                    </button>
+                    {{currentSection}}</md-toolbar>
+        <md-card layout-fill ng-controller="timeView">
+            <md-list>
+                <md-list-item>
+                    
+                    <md-item-content layout-padding layout="row" class="reslutContent">
+                        <p flex>Date</p>
+                        <p flex>Start Time</p>
+                        <p flex>End Time</p>
+                        <p flex>Hours Worked</p>
+                    </md-item-content>
+                </md-list-item>
+                <md-list-item ng-repeat="day in days">
+                    
+                    <md-item-content layout-padding layout="row" class="reslutContent">
+                        <p flex>{{day.date}}</p>
+                        <p flex>{{day.startTime}}</p>
+                        <p flex>{{day.endTIme}}</p>
+                        <p flex>{{day.hoursWorked}}</p>
+                    </md-item-content>
+                    <md-divider ng-if="!$last"></md-divider>
+                </md-list-item>
+            </md-list>
+        </md-card>
+              </md-content>
     </div>
 </body>
 </html>

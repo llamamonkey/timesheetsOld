@@ -74,6 +74,7 @@ app.service('userinfoService', function ($mdToast, $mdDialog, $q, $http) {
 
     var logIn = function () {
         var deffered = $q.defer();
+        $mdToast.show($mdToast.simple().content('Not Logged In'));
         $mdDialog.show({
                 controller: DialogController,
                 templateUrl: 'js/templates/login.html',
@@ -103,20 +104,6 @@ app.service('userinfoService', function ($mdToast, $mdDialog, $q, $http) {
 });
 
 app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', 'userinfoService', function ($scope, $mdDialog, $http, $mdToast, userinfoService) {
-    $scope.userInfo = [];
-    $http.get('https://timesheets-lamamonkey.rhcloud.com/data/userInfo.php')
-        .success(function (response) {
-            if (response == "Not logged in") {
-                $mdToast.show($mdToast.simple().content('Not Logged In'));
-
-                userinfoService.logIn().then(function(){
-                    console.log(userinfoService.getUser());   
-                });
-            } else {
-                $scope.userInfo = response;
-            }
-        });
-
     $scope.currentSection = 'Home';
 }]);
 
@@ -130,6 +117,13 @@ app.controller('timeView', ['$scope', '$http', 'userinfoService', function ($sco
             .success(function (response) {
                 $scope.days = response;
             });
+    } else {
+        userinfoService.logIn().then(function(){
+            $http.get('testData/dayInfo.php')
+                .success(function (response){
+                    $scope.days = response; 
+            });
+        });
     }
 }]);
 
