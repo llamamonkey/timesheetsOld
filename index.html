@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js" type="text/javascript" ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js" type="text/javascript" ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <script src="js/main.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/main.css" >
@@ -61,20 +62,26 @@
             <md-list>
                 <md-list-item>
                     
-                    <md-item-content layout-padding layout="row" class="reslutContent">
+                    <md-item-content flex layout-padding layout="row" class="reslutContent">
                         <p flex>Date</p>
                         <p flex>Start Time</p>
                         <p flex>End Time</p>
                         <p flex>Hours Worked</p>
+                        <p flex>Tools</p>
                     </md-item-content>
                 </md-list-item>
                 <md-list-item ng-repeat="day in days">
                     
-                    <md-item-content layout-padding layout="row" class="reslutContent">
+                    <md-item-content flex layout-padding layout="row" class="reslutContent">
                         <p flex>{{day.date}}</p>
                         <p flex>{{day.startTime}}</p>
                         <p flex>{{day.endTIme}}</p>
                         <p flex>{{day.hoursWorked}}</p>
+                        <p flex><md-icon class="md-18 step material-icons" style="color: black">email</md-icon></p>
+                        <md-icon aria-label="accessibility" class="step ng-binding ng-isolate-scope md-default-theme material-icons md-18" ng-class="it.size" style="color: rgb(119, 119, 119);">
+          accessibility
+        </md-icon>
+                        
                     </md-item-content>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
