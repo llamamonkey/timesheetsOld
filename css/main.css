@@ -44,3 +44,7 @@ md-item button.md-button{
     width: 100%;
     text-align: left;
 }
+.icon-button {
+    min-width: 40px;
+    margin: 4px;
+}
