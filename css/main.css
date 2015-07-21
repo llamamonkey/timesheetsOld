@@ -52,3 +52,7 @@ md-item button.md-button{
 #topHeader h4{
     margin-left: 60px;
 }
+
+h4 {
+    font-weight: normal;
+}
