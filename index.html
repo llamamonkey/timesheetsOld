@@ -52,11 +52,12 @@
             </md-sidenav>
             <md-content flex>
 
-                <md-toolbar layout-align="center">
+                <md-toolbar id="topHeader" layout-align="center">
                     <button ng-hide="$media('gt-md')" ng-click="toggleSidenav()" class="menuBtn" hide-gt-md>
                         <span class="visuallyhidden">Menu</span>
                     </button>
-                    {{currentSection}}</md-toolbar>
+                    <h4>{{currentSection}}</h4>
+                </md-toolbar>
         <md-card layout-fill ng-controller="timeView">
             <md-list>
                 <md-list-item>

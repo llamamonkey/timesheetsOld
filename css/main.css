@@ -18,7 +18,7 @@ md-sidenav .md-button {
   background-color: transparent;
   border: none;
   height: 38px;
-  margin: 16px;
+  margin: 20px;
   position: absolute;
   width: 36px;
 } 
@@ -47,4 +47,8 @@ md-item button.md-button{
 .icon-button {
     min-width: 40px;
     margin: 4px;
+}
+
+#topHeader h4{
+    margin-left: 60px;
 }

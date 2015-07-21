@@ -103,8 +103,12 @@ app.service('userinfoService', function ($mdToast, $mdDialog, $q, $http) {
     }
 });
 
-app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', 'userinfoService', function ($scope, $mdDialog, $http, $mdToast, userinfoService) {
+app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', 'userinfoService', '$mdSidenav', function ($scope, $mdDialog, $http, $mdToast, userinfoService, $mdSidenav) {
     $scope.currentSection = 'Home';
+    
+    $scope.toggleSidenav = function(){
+        $mdSidenav('main').toggle();
+    }
 }]);
 
 app.controller('timeView', ['$scope', '$http', 'userinfoService', function ($scope, $http, userinfoService) {
@@ -125,6 +129,7 @@ app.controller('timeView', ['$scope', '$http', 'userinfoService', function ($sco
             });
         });
     }
+    
 }]);
 
 function DialogController($scope, $mdDialog, $http) {
