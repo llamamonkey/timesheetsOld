@@ -130,6 +130,10 @@ app.controller('timeView', ['$scope', '$http', 'userinfoService', function ($sco
         });
     }
     
+    $scope.deleteDay = function(){
+        
+    }
+    
 }]);
 
 function DialogController($scope, $mdDialog, $http) {
