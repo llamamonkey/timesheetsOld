@@ -59,6 +59,20 @@
                     <h4>{{currentSection}}</h4>
                 </md-toolbar>
         <md-card layout-fill ng-controller="timeView">
+            <div layout="row">
+                <md-input-container flex="40">
+                  <label>From Date</label>
+                  <input type="date">
+                </md-input-container>
+                <md-input-container flex="40">
+                  <label>To Date</label>
+                  <input type="date">
+                </md-input-container>
+                <p layout="row" flex="10" offset="10">
+                    <md-button class="icon-button"><md-tooltip>Add</md-tooltip><i class="material-icons">add</i></md-button>
+                    <md-button class="icon-button"><md-tooltip>Download</md-tooltip><i class="material-icons">file_download</i></md-button>
+                </p>
+            </div>
             <md-list>
                 <md-list-item>
                     
@@ -79,7 +93,8 @@
                         <p flex>{{day.hoursWorked}}</p>
                         <p flex>
                             <md-button class="icon-button"><md-tooltip>Edit</md-tooltip><i class="material-icons">edit</i></md-button>
-                            <md-button class="icon-button"><md-tooltip>Delete</md-tooltip><i class="material-icons">delete</i></p></md-button>        
+                            <md-button class="icon-button"><md-tooltip>Delete</md-tooltip><i class="material-icons">delete</i></md-button>
+                        </p>
                     </md-item-content>
                     <md-divider ng-if="!$last"></md-divider>
                 </md-list-item>
