@@ -111,7 +111,7 @@ app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', 'userinfo
     }
 }]);
 
-app.controller('timeView', ['$scope', '$http', 'userinfoService', function ($scope, $http, userinfoService) {
+app.controller('timeView', ['$scope', '$mdDialog', '$http', 'userinfoService', function ($scope, $mdDialog, $http, userinfoService) {
     $scope.days = [];
     $scope.startDay = '';
     $scope.endDay = '';
@@ -132,6 +132,19 @@ app.controller('timeView', ['$scope', '$http', 'userinfoService', function ($sco
     
     $scope.deleteDay = function(){
         
+    }
+    
+    $scope.addDay = function(){
+        $mdDialog.show({
+                controller: DialogController,
+                templateUrl: 'js/templates/addDay.html',
+                parent: angular.element(document.body),
+            })
+            .then(function (answer) {
+                
+            }, function () {
+                
+            });
     }
     
 }]);
