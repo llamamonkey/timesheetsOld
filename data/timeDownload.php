@@ -59,7 +59,7 @@ echo 'Test';
 header('Content-type: application/vnd.ms-excel');
 
 // It will be called file.xls
-header('Content-Disposition: attachment; filename="file.xls"');
+header('Content-Disposition: attachment; filename="file.xlsx"');
 
 // Write file to the browser
 $objWriter->save('php://output');
