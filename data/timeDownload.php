@@ -22,10 +22,10 @@ if (isset($_GET['endDate']) && !empty($_GET['endDate'])){
 	$strWhereDate .= ' AND date <= "' . $_GET['endDate'] . '"';
 }
 
-$sqlStr = "SELECT * FROM timeDetail WHERE userID = " . $_SESSION["userID"] . $strWhereDate . "ORDER BY date";
+$sqlStr = "SELECT * FROM timeDetail WHERE userID = " . $_SESSION["userID"] . $strWhereDate . " ORDER BY date";
 	
 $result = $conn->query($sqlStr);
-
+echo $sqlStr;
 // Create new PHPExcel object
 $objPHPExcel = new PHPExcel();
 
