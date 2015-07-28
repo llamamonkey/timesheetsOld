@@ -1,9 +1,6 @@
 <?php
 session_start();
 /** Error reporting */
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(-1);
 require "inc/connection.php";
 
 /** PHPExcel */
@@ -25,7 +22,7 @@ if (isset($_GET['endDate']) && !empty($_GET['endDate'])){
 $sqlStr = "SELECT * FROM timeDetail WHERE userID = " . $_SESSION["userID"] . $strWhereDate . " ORDER BY date";
 	
 $result = $conn->query($sqlStr);
-echo $sqlStr;
+
 // Create new PHPExcel object
 $objPHPExcel = new PHPExcel();
 
@@ -44,8 +41,8 @@ $currentRow = 1;
 
 while ($row= $result->fetch_assoc()){
 	$currentRow++;
-	$objPHPExcel->getActiveSheet()->SetCellValue('B'.$currentRow, date($row['date'], 'D'));
-	$objPHPExcel->getActiveSheet()->SetCellValue('C'.$currentRow, $row['startTime'] . ' - ' . $row['endTime']);
+	$objPHPExcel->getActiveSheet()->SetCellValue('B'.$currentRow, date('D', $row['date']));
+	$objPHPExcel->getActiveSheet()->SetCellValue('C'.$currentRow, $row['startTime'] . ' - ' . $row['endTIme']);
 	$objPHPExcel->getActiveSheet()->SetCellValue('D'.$currentRow, $row['hoursWorked']);
 }
 
@@ -59,10 +56,10 @@ $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
 echo 'Test';
 
 // We'll be outputting an excel file
-//header('Content-type: application/vnd.ms-excel');
+header('Content-type: application/vnd.ms-excel');
 
 // It will be called file.xls
-//header('Content-Disposition: attachment; filename="file.xls"');
+header('Content-Disposition: attachment; filename="file.xls"');
 
 // Write file to the browser
 $objWriter->save('php://output');
