@@ -1,6 +1,8 @@
 <?php
 /** Error reporting */
-error_reporting(E_ALL);
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(-1);
 require "inc/connection.php";
 
 /** PHPExcel */
@@ -52,6 +54,8 @@ $objPHPExcel->getActiveSheet()->setTitle('Simple');
 		
 // Save Excel 2007 file
 $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+
+echo 'Test';
 
 // We'll be outputting an excel file
 //header('Content-type: application/vnd.ms-excel');
