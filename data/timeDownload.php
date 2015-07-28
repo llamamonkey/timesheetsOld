@@ -12,7 +12,7 @@ include 'PHPExcel/Writer/Excel2007.php';
 $strWhereDate = '';
 
 if (isset($_GET['startDate']) && !empty($_GET['startDate'])){
-	$strWhereDate .= ' AND date >= "' . $_GET['startDate'] . '"';
+	$strWhereDate .= ' AND date >= "' . $_GET['startDate'] . '"'; 
 }
 
 if (isset($_GET['endDate']) && !empty($_GET['endDate'])){
