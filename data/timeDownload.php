@@ -40,7 +40,7 @@ while ($row= $result->fetch_assoc()){
 	$currentRow++;
 	$objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('B'.$currentRow, date('D', $row['date']))
-            ->setCellValue('C'.$currentRow, $row['startTime'] . ' - ' . $row['endTIme'])
+            ->setCellValue('C'.$currentRow, $row['startTime'] . ' - ' . $row['endTime'])
             ->setCellValue('D'.$currentRow, $row['hoursWorked']);
 }
 
