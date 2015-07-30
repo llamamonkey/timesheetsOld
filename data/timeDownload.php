@@ -3,11 +3,8 @@ session_start();
 /** Error reporting */
 require "inc/connection.php";
 
-/** PHPExcel */
-include 'PHPExcel.php';
-
-/** PHPExcel_Writer_Excel2007 */
-include 'PHPExcel/Writer/Excel2007.php';
+/** Include PHPExcel */
+require_once 'PHPExcel.php';
 
 $strWhereDate = '';
 
@@ -41,9 +38,10 @@ $currentRow = 1;
 
 while ($row= $result->fetch_assoc()){
 	$currentRow++;
-	$objPHPExcel->getActiveSheet()->SetCellValue('B'.$currentRow, date('D', $row['date']));
-	$objPHPExcel->getActiveSheet()->SetCellValue('C'.$currentRow, $row['startTime'] . ' - ' . $row['endTIme']);
-	$objPHPExcel->getActiveSheet()->SetCellValue('D'.$currentRow, $row['hoursWorked']);
+	$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('B'.$currentRow, date('D', $row['date']))
+            ->setCellValue('C'.$currentRow, $row['startTime'] . ' - ' . $row['endTIme'])
+            ->setCellValue('D'.$currentRow, $row['hoursWorked']);
 }
 
 // Rename sheet
