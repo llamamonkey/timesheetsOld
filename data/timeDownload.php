@@ -51,8 +51,7 @@ $objPHPExcel->getActiveSheet()->setTitle('Simple');
 // Save Excel 2007 file
 $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
 
-echo 'Test';
-
+ob_end_clean();
 // Redirect output to a client’s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment;filename="01simple.xlsx"');
