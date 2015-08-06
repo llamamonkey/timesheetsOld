@@ -52,8 +52,8 @@ while ($row= $result->fetch_assoc()){
 }
 
 $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('C'.$currentRow++, date('D', 'Total'))
-            ->setCellValue('D'.$currentRow++, '=SUM(D1:D'.$currentRow.')');
+            ->setCellValue('C'.$currentRow+1, 'Total')
+            ->setCellValue('D'.$currentRow+1, '=SUM(D1:D'.$currentRow.')');
 
 // Rename sheet
 $objPHPExcel->getActiveSheet()->setTitle('Simple');
