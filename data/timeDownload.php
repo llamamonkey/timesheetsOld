@@ -23,13 +23,13 @@ $result = $conn->query($sqlStr);
 // Create new PHPExcel object
 $objPHPExcel = new PHPExcel();
 
-// Set properties
+/* Set properties
 $objPHPExcel->getProperties()->setCreator("Maarten Balliauw");
 $objPHPExcel->getProperties()->setLastModifiedBy("Maarten Balliauw");
 $objPHPExcel->getProperties()->setTitle("Office 2007 XLSX Test Document");
 $objPHPExcel->getProperties()->setSubject("Office 2007 XLSX Test Document");
 $objPHPExcel->getProperties()->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.");
-
+*/
 
 // Add some data
 $objPHPExcel->setActiveSheetIndex(0);
@@ -38,6 +38,11 @@ $currentRow = 1;
 
 while ($row= $result->fetch_assoc()){
 	$currentRow++;
+	
+	if (date('D', strtotime($row['date'])) == 'Mon'){
+		$currentRow++;
+	}
+	
 	$objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('B'.$currentRow, date('D', strtotime($row['date'])))
             ->setCellValue('C'.$currentRow, $row['startTime'] . ' - ' . $row['endTIme'])
