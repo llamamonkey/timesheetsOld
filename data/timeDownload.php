@@ -35,11 +35,13 @@ $objPHPExcel->getProperties()->setDescription("Test document for Office 2007 XLS
 $objPHPExcel->setActiveSheetIndex(0);
 
 $currentRow = 1;
+$currentWeek = 0;
 
 while ($row= $result->fetch_assoc()){
 	$currentRow++;
 	
-	if (date('D', strtotime($row['date'])) == 'Mon'){
+	if (date('W', strtotime($row['date'])) !== $currentWeek){
+		$currentWeek = date('W', strtotime($row['date']));
 		$currentRow++;
 	}
 	
@@ -48,6 +50,10 @@ while ($row= $result->fetch_assoc()){
             ->setCellValue('C'.$currentRow, $row['startTime'] . ' - ' . $row['endTIme'])
             ->setCellValue('D'.$currentRow, $row['hoursWorked']);
 }
+
+$objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('C'.$currentRow++, date('D', 'Total'))
+            ->setCellValue('D'.$currentRow++, '=SUM(D1:D'.$currentRow.')');
 
 // Rename sheet
 $objPHPExcel->getActiveSheet()->setTitle('Simple');
