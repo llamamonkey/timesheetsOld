@@ -31,8 +31,21 @@ $objPHPExcel->getProperties()->setSubject("Office 2007 XLSX Test Document");
 $objPHPExcel->getProperties()->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.");
 */
 
+$styleArray = array(
+    'font'  => array(
+        'bold'  => false,
+        'color' => array('rgb' => '000000'),
+        'size'  => 10,
+        'name'  => 'Arial'
+    ));
+
 // Add some data
 $objPHPExcel->setActiveSheetIndex(0);
+
+$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(20);
+$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(20);
 
 $currentRow = 1;
 $currentWeek = 0;
@@ -49,14 +62,22 @@ while ($row= $result->fetch_assoc()){
             ->setCellValue('B'.$currentRow, date('D', strtotime($row['date'])))
             ->setCellValue('C'.$currentRow, $row['startTime'] . ' - ' . $row['endTIme'])
             ->setCellValue('D'.$currentRow, $row['hoursWorked']);
+            
+    $phpExcel->getActiveSheet()->getStyle('A'.$currentRow)->applyFromArray($styleArray);
+    $phpExcel->getActiveSheet()->getStyle('B'.$currentRow)->applyFromArray($styleArray);
+    $phpExcel->getActiveSheet()->getStyle('C'.$currentRow)->applyFromArray($styleArray);
+    $phpExcel->getActiveSheet()->getStyle('D'.$currentRow)->applyFromArray($styleArray);
 }
 
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('C'.($currentRow+1), 'Total')
             ->setCellValue('D'.($currentRow+1), '=SUM(D1:D'.$currentRow.')');
+            
+        $phpExcel->getActiveSheet()->getStyle('C'.($currentRow+1))->applyFromArray($styleArray);
+        $phpExcel->getActiveSheet()->getStyle('D'.($currentRow+1))->applyFromArray($styleArray);
 
 // Rename sheet
-$objPHPExcel->getActiveSheet()->setTitle('Simple');
+$objPHPExcel->getActiveSheet()->setTitle('Book1');
 
 		
 // Save Excel 2007 file
