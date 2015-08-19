@@ -66,18 +66,18 @@ while ($row= $result->fetch_assoc()){
             ->setCellValue('C'.$currentRow, $row['startTime'] . ' - ' . $row['endTIme'])
             ->setCellValue('D'.$currentRow, $row['hoursWorked']);
             
-    $phpExcel->getActiveSheet()->getStyle('A'.$currentRow)->applyFromArray($styleArray);
-    $phpExcel->getActiveSheet()->getStyle('B'.$currentRow)->applyFromArray($styleArray);
-    $phpExcel->getActiveSheet()->getStyle('C'.$currentRow)->applyFromArray($styleArray);
-    $phpExcel->getActiveSheet()->getStyle('D'.$currentRow)->applyFromArray($styleArray);
+    $objPHPExcel->getActiveSheet()->getStyle('A'.$currentRow)->applyFromArray($styleArray);
+    $objPHPExcel->getActiveSheet()->getStyle('B'.$currentRow)->applyFromArray($styleArray);
+    $objPHPExcel->getActiveSheet()->getStyle('C'.$currentRow)->applyFromArray($styleArray);
+    $objPHPExcel->getActiveSheet()->getStyle('D'.$currentRow)->applyFromArray($styleArray);
 }
 
 $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('C'.($currentRow+1), 'Total')
             ->setCellValue('D'.($currentRow+1), '=SUM(D1:D'.$currentRow.')');
             
-        $phpExcel->getActiveSheet()->getStyle('C'.($currentRow+1))->applyFromArray($styleArray);
-        $phpExcel->getActiveSheet()->getStyle('D'.($currentRow+1))->applyFromArray($styleArray);
+        $objPHPExcel->getActiveSheet()->getStyle('C'.($currentRow+1))->applyFromArray($styleArray);
+        $objPHPExcel->getActiveSheet()->getStyle('D'.($currentRow+1))->applyFromArray($styleArray);
 
 // Rename sheet
 $objPHPExcel->getActiveSheet()->setTitle('Book1');
