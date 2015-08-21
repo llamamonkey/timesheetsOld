@@ -61,7 +61,7 @@ app.service('userinfoService', function ($mdToast, $mdDialog, $q, $http) {
     }
 
     var isLoggedIn = function () {
-        if (userinfo != []) {
+        if (userinfo !== []) {
             return true
         } else {
             return false
@@ -134,11 +134,12 @@ app.controller('timeView', ['$scope', '$mdDialog', '$http', 'userinfoService', f
         
     }
     
-    $scope.addDay = function(){
+    $scope.addDay = function(ev){
         $mdDialog.show({
                 controller: DialogController,
                 templateUrl: 'js/templates/addDay.html',
                 parent: angular.element(document.body),
+                targetEvent: ev
             })
             .then(function (answer) {
                 
@@ -146,6 +147,22 @@ app.controller('timeView', ['$scope', '$mdDialog', '$http', 'userinfoService', f
                 
             });
     }
+
+$scope.confirmDelete = function(ev) {
+    // Appending dialog to document.body to cover sidenav in docs app
+    var confirm = $mdDialog.confirm()
+          .title('Are you sure you want to delete this record?')
+          .content('This cannot be undone')
+          .ariaLabel('Lucky day')
+          .ok('Yes')
+          .cancel('No')
+          .targetEvent(ev);
+    $mdDialog.show(confirm).then(function() {
+        //Ok Click
+    }, function() {
+        //Cancel Clicked
+    });
+  };
     
 }]);
 
