@@ -5,6 +5,12 @@ $username = getenv("OPENSHIFT_MYSQL_DB_USERNAME");
 $password = getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
 $dbname = "timesheets";
 
+if (empty($servername)){
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+}
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
