@@ -13,6 +13,7 @@ if (isset($_POST["submit"])){
 		$username = $_POST["username"];
 		$password = $_POST["password"];
 		$errors = array();
+		$sOutput = array();
 		
 		if (empty($username)){
 			array_push($errors, "Username field is empty");
@@ -36,8 +37,16 @@ if (isset($_POST["submit"])){
 				
 				if (password_verify($password, $row["password"])){
 					$_SESSION["userID"] = trim($row["userID"]);
-				
-					echo json_encode("success");
+					
+					$token = array();
+					$token['userID'] = trim($row["userID"]);
+					
+					$sOutput['token'] = JWT::encode($token, $appSecret);
+					$sOutput['message'] = 'success';
+					
+					echo json_encode($sOutput);
+					
+					//echo json_encode("success");
 					
 				} else {
 					echo json_encode("no password match");

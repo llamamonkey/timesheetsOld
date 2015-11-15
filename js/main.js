@@ -49,6 +49,28 @@ var app = angular.module('timesheetApp', ['ngMaterial'], function ($httpProvider
     });
 
 
+app.factory('authInterceptor', function ($rootScope, $q, $window) {
+  return {
+    request: function (config) {
+      config.headers = config.headers || {};
+      if (localStorage['token']) {
+        config.headers.Authorization = 'Bearer ' + localStorage['token'];
+      }
+      return config;
+    },
+    response: function (response) {
+      if (response.status === 401) {
+        // handle the case where the user is not authenticated
+      }
+      return response || $q.when(response);
+    }
+  };
+});
+
+app.config(function ($httpProvider) {
+  $httpProvider.interceptors.push('authInterceptor');
+});
+
 app.service('userinfoService', function ($mdToast, $mdDialog, $q, $http) {
     var userinfo = [];
 
@@ -62,7 +84,7 @@ app.service('userinfoService', function ($mdToast, $mdDialog, $q, $http) {
 
     var isLoggedIn = function () {
         if (userinfo !== []) {
-            return true
+            return false
         } else {
             return false
         }
@@ -89,7 +111,6 @@ app.service('userinfoService', function ($mdToast, $mdDialog, $q, $http) {
                     });
             }, function () {
                 console.log("No");
-                $scope.alert = 'You cancelled the dialog.';
             });
             return deffered.promise;
     }
@@ -117,13 +138,13 @@ app.controller('timeView', ['$scope', '$mdDialog', '$http', 'userinfoService', f
     $scope.endDay = '';
 
     if (userinfoService.isLoggedIn()) {
-        $http.get('testData/dayInfo.php')
+        $http.get('data/dayInfo.php')
             .success(function (response) {
                 $scope.days = response;
             });
     } else {
         userinfoService.logIn().then(function(){
-            $http.get('testData/dayInfo.php')
+            $http.get('data/dayInfo.php')
                 .success(function (response){
                     $scope.days = response; 
             });
@@ -167,6 +188,8 @@ $scope.confirmDelete = function(ev) {
 }]);
 
 function DialogController($scope, $mdDialog, $http) {
+    $scope.user = [];
+    
     $scope.hide = function () {
         $mdDialog.hide();
     };
@@ -174,14 +197,17 @@ function DialogController($scope, $mdDialog, $http) {
         $mdDialog.cancel();
     };
     $scope.login = function () {
-        $http.post('https://timesheets-lamamonkey.rhcloud.com/data/login.php', {
+        console.log($scope);
+        $http.post('/data/login.php', {
                 "username": $scope.user.username,
                 "password": $scope.user.password,
-                "remmberMe": $scope.user.remmber,
+                "remmberMe": $scope.user.remember,
                 "submit": "1"
             })
             .success(function (response) {
-                if (response == '"success"') {
+                console.log(response);
+                if (response['message'] == "success") {
+                    localStorage['token'] = response['token'];
                     $mdDialog.hide("success");
                 }
             });

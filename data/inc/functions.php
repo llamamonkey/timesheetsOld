@@ -1,5 +1,9 @@
 <?php
 
+require "jwt_helper.php";
+
+$appSecret = "!ie9&80324b";
+
 function requireSSL(){
 	if($_SERVER["HTTPS"] != "on" && $_SERVER["HTTPS"] != "1" && $_SERVER["HTTPS"] != 1)
 	{
@@ -43,6 +47,26 @@ function formatTime($inpTime, $round = false){
 	}
 	
 	return $proTime;
+}
+
+
+/*
+Encode array
+$token = array();
+$token['id'] = $id;
+echo JWT::encode($token, 'secret_server_key');
+
+Decode Array
+$token = JWT::decode($_POST['token'], 'secret_server_key');
+echo $token->id;
+*/
+
+if ($_GET['appJWT']){
+	$_SESSION['userID'] = JWT::decode($_GET['appJWT'], $appSecret);
+}
+
+if ($_POST['appJWT']){
+	$_SESSION['userID'] = JWT::decode($_POST['appJWT'], $appSecret);
 }
 
 header("Access-Control-Allow-Origin: *");
