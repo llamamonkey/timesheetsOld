@@ -14,6 +14,9 @@ md-sidenav .md-button {
     white-space: normal;
     width: 100%;
 }
+.md-toolbar-tools h2, .md-toolbar-tools h3, .md-toolbar-tools h4{
+    color: #fff;
+}
 .menuBtn {
   background-color: transparent;
   border: none;
@@ -58,4 +61,7 @@ h4 {
 }
 .md-button.md-fab.md-fab-bottom-right{
     position: fixed;
+}
+md-list-item{
+    position: relative;
 }

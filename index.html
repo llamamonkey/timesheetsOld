@@ -1,12 +1,12 @@
 <html ng-app="timesheetApp">
 <head>
     <title>Timesheets</title>
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc4/angular-material.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js" type="text/javascript" ></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js" type="text/javascript" ></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js" type="text/javascript" ></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js" type="text/javascript" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-aria.min.js" type="text/javascript" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-animate.min.js" type="text/javascript" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0-rc4/angular-material.min.js"></script>
     
     <script src="js/main.js" type="text/javascript"></script>
     <link rel="stylesheet" href="css/main.css" >
@@ -19,7 +19,9 @@
             <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="main" md-is-locked-open="$mdMedia('gt-md')">
                 <md-content>
                     <md-toolbar layout-align="center center" layout="row">
-                        <h4>Timesheets</h4>
+                        <div class="md-toolbar-tools">
+                            <h4>Timesheets</h4>
+                        </div>
                     </md-toolbar>
                     <md-list>
                         <md-item>
@@ -33,10 +35,12 @@
             <md-content flex>
 
                 <md-toolbar id="topHeader" layout-align="center">
-                    <button ng-hide="$media('gt-md')" ng-click="toggleSidenav()" class="menuBtn" hide-gt-md>
-                        <span class="visuallyhidden">Menu</span>
-                    </button>
-                    <h4>{{currentSection}}</h4>
+                    <div class="md-toolbar-tools">
+                        <button ng-hide="$media('gt-md')" ng-click="toggleSidenav()" class="menuBtn" hide-gt-md>
+                            <span class="visuallyhidden">Menu</span>
+                        </button>
+                        <h4>{{currentSection}}</h4>
+                    </div>
                 </md-toolbar>
         <md-card layout-fill ng-controller="timeView">
             <div layout="row">
