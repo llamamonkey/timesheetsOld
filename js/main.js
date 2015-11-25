@@ -173,7 +173,7 @@ $scope.confirmDelete = function(ev) {
     // Appending dialog to document.body to cover sidenav in docs app
     var confirm = $mdDialog.confirm()
           .title('Are you sure you want to delete this record?')
-          .content('This cannot be undone')
+          .textContent('This cannot be undone')
           .ariaLabel('Lucky day')
           .ok('Yes')
           .cancel('No')

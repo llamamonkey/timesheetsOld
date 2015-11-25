@@ -21,7 +21,7 @@ md-sidenav .md-button {
   background-color: transparent;
   border: none;
   height: 38px;
-  margin: 20px;
+  padding: 32px 25px;
   position: absolute;
   width: 36px;
 } 
