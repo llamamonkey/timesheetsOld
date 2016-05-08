@@ -42,20 +42,20 @@
                         <h4>{{currentSection}}</h4>
                     </div>
                 </md-toolbar>
-        <md-card layout-fill ng-controller="timeView">
             <div layout="row">
                 <md-input-container flex="40">
                   <label>From Date</label>
-                  <input type="date">
+                  <input type="date" name="startDate">
                 </md-input-container>
                 <md-input-container flex="40">
                   <label>To Date</label>
-                  <input type="date">
+                  <input type="date" name="endDate">
                 </md-input-container>
                 <p layout="row" flex="10" offset="10">
                     <md-button class="icon-button"><md-tooltip>Download</md-tooltip><i class="material-icons">file_download</i></md-button>
                 </p>
             </div>
+        <md-card layout-fill ng-controller="timeView">
             <md-list>
                     <md-button class="icon-button md-fab md-fab-bottom-right" ng-click="addDay($event)"><i class="material-icons">add</i></md-button>
                 <md-list-item>

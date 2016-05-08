@@ -53,8 +53,8 @@ app.factory('authInterceptor', function ($rootScope, $q, $window) {
   return {
     request: function (config) {
       config.headers = config.headers || {};
-      if (localStorage['token']) {
-        config.headers.Authorization = 'Bearer ' + localStorage['token'];
+      if (sessionStorage['token']) {
+        config.headers.Authorization = 'Bearer ' + sessionStorage['token'];
       }
       return config;
     },
@@ -73,6 +73,19 @@ app.config(function ($httpProvider) {
 
 app.service('userinfoService', function ($mdToast, $mdDialog, $q, $http) {
     var userinfo = [];
+    
+    //Load saved token from remeber me
+    if (localStorage['token']){
+        sessionStorage['token'] = localStorage['token'];
+    }
+    
+    if (localStorage['token']){
+        $http.get('testData/userInfo.php') //User Info
+            .success(function (response) {
+                userinfo = response;
+                $mdToast.show($mdToast.simple().content('Welcome ' + response.username));
+            });
+    }
 
     var setUser = function (userData) {
         userinfo = userData;
@@ -83,8 +96,8 @@ app.service('userinfoService', function ($mdToast, $mdDialog, $q, $http) {
     }
 
     var isLoggedIn = function () {
-        if (userinfo !== []) {
-            return false
+        if (sessionStorage['token']) {
+            return true
         } else {
             return false
         }
@@ -207,7 +220,11 @@ function DialogController($scope, $mdDialog, $http) {
             .success(function (response) {
                 console.log(response);
                 if (response['message'] == "success") {
-                    localStorage['token'] = response['token'];
+                    if ($scope.user.remember){
+                        localStorage['token'] = response['token'];
+                    } else {
+                        sessionStorage['token'] = response['token'];
+                    }
                     $mdDialog.hide("success");
                 }
             });
