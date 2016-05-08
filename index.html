@@ -32,7 +32,7 @@
                     </md-list>
                 </md-content>
             </md-sidenav>
-            <md-content flex>
+            <md-content flex ng-controller="timeView">
 
                 <md-toolbar id="topHeader" layout-align="center">
                     <div class="md-toolbar-tools">
@@ -43,19 +43,14 @@
                     </div>
                 </md-toolbar>
             <div layout="row">
-                <md-input-container flex="40">
-                  <label>From Date</label>
-                  <input type="date" name="startDate">
-                </md-input-container>
-                <md-input-container flex="40">
-                  <label>To Date</label>
-                  <input type="date" name="endDate">
-                </md-input-container>
+                  <md-datepicker ng-model="filter.startDate" flex="40"></md-datepicker>
+                  <md-datepicker ng-model="filter.endDate" flex="40"></md-datepicker>
                 <p layout="row" flex="10" offset="10">
+                    <md-button class="icon-button" ng-click="filterResults()"><md-tooltip>Update Results</md-tooltip><i class="material-icons">filter_list</i></md-button>
                     <md-button class="icon-button"><md-tooltip>Download</md-tooltip><i class="material-icons">file_download</i></md-button>
                 </p>
             </div>
-        <md-card layout-fill ng-controller="timeView">
+        <md-card layout-fill>
             <md-list>
                     <md-button class="icon-button md-fab md-fab-bottom-right" ng-click="addDay($event)"><i class="material-icons">add</i></md-button>
                 <md-list-item>

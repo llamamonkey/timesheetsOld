@@ -48,6 +48,26 @@ var app = angular.module('timesheetApp', ['ngMaterial'], function ($httpProvider
             .accentPalette('blue');
     });
 
+app.filter('convertTime', function(){
+   return function(input, inpSeperator){
+       //Recieve a Date object as inout and convert to DD/MM/YYYY
+       var seperator = inpSeperator || '-';
+       
+       var year = input.getFullYear();
+       var month = input.getMonth() + 1;
+       var day = input.getDay();
+       
+       if (month < 10){
+           month = "0" + month;
+       } 
+       
+       if (day < 10){
+           day = "0" + day;
+       }
+       
+       return year + seperator + month + seperator + day;
+   } 
+});
 
 app.factory('authInterceptor', function ($rootScope, $q, $window) {
   return {
@@ -145,10 +165,12 @@ app.controller('mainApp', ['$scope', '$mdDialog', '$http', '$mdToast', 'userinfo
     }
 }]);
 
-app.controller('timeView', ['$scope', '$mdDialog', '$http', 'userinfoService', function ($scope, $mdDialog, $http, userinfoService) {
+app.controller('timeView', ['$scope', '$mdDialog', '$http', '$filter', '$mdToast', 'userinfoService', function ($scope, $mdDialog, $http, $filter, $mdToast, userinfoService) {
     $scope.days = [];
     $scope.startDay = '';
     $scope.endDay = '';
+    
+    //  $scope.filter.startDate = new Date()
 
     if (userinfoService.isLoggedIn()) {
         $http.get('data/dayInfo.php')
@@ -162,6 +184,36 @@ app.controller('timeView', ['$scope', '$mdDialog', '$http', 'userinfoService', f
                     $scope.days = response; 
             });
         });
+    }
+    
+    $scope.filterResults = function(){
+        
+        var startDate = $filter('convertTime')($scope.filter.startDate);
+        var endDate = $filter('convertTime')($scope.filter.endDate);
+        
+        $http.get('data/dayInfo.php', {
+            params: {
+                dateFrom: startDate,
+                dateTo: endDate
+            }
+        })
+            .success(function(response){
+                if (response == 'no match'){
+                    $mdToast.show($mdToast.simple().content('No results found, please try again'));
+                } else {
+                    $scope.days = response; 
+                }
+            });
+    }
+    
+    $scope.maxFilterDate = function(date){
+        // return date > $scope.filter.startDate
+        return true
+    }
+    
+    $scope.minFilterDate = function(date){
+        // return date < $scope.filter.endDate
+        return true
     }
     
     $scope.deleteDay = function(){
